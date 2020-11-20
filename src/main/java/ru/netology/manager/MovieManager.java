@@ -3,11 +3,19 @@ package ru.netology.manager;
 import ru.netology.domain.Movie;
 
 public class MovieManager {
-    private Movie[] items = new Movie[0];
+    private Movie[] items;
+    private int count;
 
-/*    public MovieManager(int count) {
-        this.items = new Movie[count];
-    }*/
+    public MovieManager(int count) {
+        this.count = count;
+        this.items = new Movie[0];
+    }
+
+    public MovieManager() {
+        this.count = 10;
+        this.items = new Movie[0];
+    }
+
 
     public void add(Movie item) {
         // создаём новый массив размером на единицу больше
@@ -25,11 +33,11 @@ public class MovieManager {
         items = tmp;
     }
 
-    public Movie[] getlast10() {
+    public Movie[] getLast() {
         Movie[] result = new Movie[items.length];
         // перебираем массив в прямом порядке
         // но кладём в результаты в обратном
-        if (items.length <= 10) {
+        if (items.length <= this.count) {
             for (int i = 0; i < result.length; i++) {
                 int index = items.length - i - 1;
                 result[i] = items[index];
@@ -40,16 +48,19 @@ public class MovieManager {
 
     // наивная реализация
     public void removeById(int id) {
-        int length = items.length - 1;
-        Movie[] tmp = new Movie[length];
-        int index = 0;
-        for (Movie item : items) {
-            if (item.getId() != id) {
-                tmp[index] = item;
-                index++;
+        if (items.length >= id) {
+            int length = items.length - 1;
+            Movie[] tmp = new Movie[length];
+            int index = 0;
+            for (Movie item : items) {
+                if (item.getId() != id) {
+                    tmp[index] = item;
+                    index++;
+                }
             }
+            // меняем наши элементы
+            items = tmp;
         }
-        // меняем наши элементы
-        items = tmp;
+        return;
     }
 }
