@@ -34,32 +34,41 @@ public class MovieManager {
     }
 
     public Movie[] getLast() {
-        Movie[] result = new Movie[items.length];
-        // перебираем массив в прямом порядке
-        // но кладём в результаты в обратном
-        if (items.length <= this.count) {
-            for (int i = 0; i < result.length; i++) {
+        if (this.count == 10) {
+            Movie[] result = new Movie[items.length];
+            // перебираем массив в прямом порядке
+            // но кладём в результаты в обратном
+            for (int i = 0; i < items.length; i++) {
                 int index = items.length - i - 1;
                 result[i] = items[index];
             }
+            return result;
+        } else {
+            Movie[] result = new Movie[this.count];
+            for (int i = 0; i < this.count; i++) {
+                int index = items.length - i - 1;
+                result[i] = items[index];
+            }
+            return result;
         }
-        return result;
     }
 
     // наивная реализация
     public void removeById(int id) {
         if (items.length >= id) {
             int length = items.length - 1;
-            Movie[] tmp = new Movie[length];
-            int index = 0;
-            for (Movie item : items) {
-                if (item.getId() != id) {
-                    tmp[index] = item;
-                    index++;
+            if (length >= 0) {
+                Movie[] tmp = new Movie[length];
+                int index = 0;
+                for (Movie item : items) {
+                    if (item.getId() != id) {
+                        tmp[index] = item;
+                        index++;
+                    }
                 }
+                // меняем наши элементы
+                items = tmp;
             }
-            // меняем наши элементы
-            items = tmp;
         }
         return;
     }

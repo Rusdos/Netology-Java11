@@ -6,8 +6,8 @@ import ru.netology.domain.Movie;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-public class MovieManagerTestNonEmptyWithSetup {
-    private MovieManager manager = new MovieManager(7);
+public class MovieManagerTest {
+    private MovieManager manager = new MovieManager();
     private Movie first = new Movie(1, "Бладшот", "Боевик", "", false);
     private Movie second = new Movie(2, "Вперёд", "Мультфильм", "", false);
     private Movie third = new Movie(3, "Отель 'Белград'", "Комедия", "", false);
@@ -15,6 +15,7 @@ public class MovieManagerTestNonEmptyWithSetup {
     private Movie fifth = new Movie(5, "Человек-невидимка", "Ужасы", "", false);
     private Movie sixth = new Movie(6, "Тролли. Мировой тур", "Мультфильм", "", true);
     private Movie seventh = new Movie(7, "Номер один", "Комедия", "", true);
+
 
     @BeforeEach
     public void setUp() {
@@ -41,12 +42,18 @@ public class MovieManagerTestNonEmptyWithSetup {
     @Test
     public void shouldNotRemoveIfNotExists() {
         int idToRemove = 8;
-
         manager.removeById(idToRemove);
-
         Movie[] actual = manager.getLast();
         Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
 
         assertArrayEquals(expected, actual);
     }
+    @Test
+    public void shouldGet(){
+        Movie[] actual = manager.getLast();
+        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
+        assertArrayEquals(expected, actual);
+
+    }
+
 }
