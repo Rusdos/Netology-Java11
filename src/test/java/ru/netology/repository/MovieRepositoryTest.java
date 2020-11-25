@@ -2,23 +2,15 @@ package ru.netology.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import ru.netology.domain.Movie;
 import ru.netology.manager.MovieManager;
-import ru.netology.repository.MovieRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@ExtendWith(MockitoExtension.class)
 public class MovieRepositoryTest {
-    @Mock
-    private MovieRepository repository;
-    @InjectMocks
-    private MovieManager manager;
+    private MovieRepository repository = new MovieRepository();
+    private MovieManager manager = new MovieManager(repository);
     private Movie first = new Movie(1, "Бладшот", "Боевик", "", false);
     private Movie second = new Movie(2, "Вперёд", "Мультфильм", "", false);
     private Movie third = new Movie(3, "Отель 'Белград'", "Комедия", "", false);
@@ -39,18 +31,49 @@ public class MovieRepositoryTest {
     }
 
     @Test
-    public void shouldFindAll(){
-        Movie[] temp = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
-        doReturn(temp).when(repository).findAll();
-        Movie[] actual = manager.getLast();
-        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
-        assertArrayEquals(expected,actual);
-        verify(repository).findAll();
+    public void shouldFindAll() {
+        Movie[] actual = repository.findAll();
+        Movie[] expected = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
+        assertArrayEquals(expected, actual);
     }
 
     @Test
-    public void shouldSave(){
-        
+    public void shouldSave() {
+        repository.save(first);
+        Movie[] actual = repository.findAll();
+        Movie[] expected = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, first};
+        assertArrayEquals(expected, actual);
+    }
 
+    @Test
+    public void shouldFindById() {
+        int idForFind = 0;
+        Movie actual = repository.findById(idForFind);
+        Movie expected = first;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldRemoveById() {
+        int idForRemove = 1;
+        repository.removeById(idForRemove);
+        Movie[] actual = repository.findAll();
+        Movie[] expected = new Movie[]{second, third, fourth, fifth, sixth, seventh};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldRemoveAll() {
+        repository.removeAll();
+        Movie[] actual = repository.findAll();
+        Movie[] expected = new Movie[0];
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGetLast() {
+        Movie[] actual = repository.getLast();
+        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
+        assertArrayEquals(expected, actual);
     }
 }

@@ -4,6 +4,10 @@ import ru.netology.domain.Movie;
 
 public class MovieRepository {
     private Movie[] items = new Movie[0];
+    private int count = 10;
+
+    public MovieRepository() {
+    }
 
     public Movie[] findAll() {
         return items;
@@ -53,4 +57,24 @@ public class MovieRepository {
         items = empty;
     }
 
+    public Movie[] getLast(){
+        if (this.count == 10) {
+             Movie[] result = new Movie[items.length];
+            // перебираем массив в прямом порядке
+            // но кладём в результаты в обратном
+            for (int i = 0; i < items.length; i++) {
+                int index = items.length - i - 1;
+                result[i] = items[index];
+            }
+            return result;
+        } else {
+            Movie[] result = new Movie[this.count];
+            for (int i = 0; i < this.count; i++) {
+                int index = items.length - i - 1;
+                result[i] = items[index];
+            }
+            return result;
+        }
+
+    }
 }
