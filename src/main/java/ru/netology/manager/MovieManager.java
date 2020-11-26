@@ -44,8 +44,8 @@ public class MovieManager {
             }
             return result;
         } else {
-            Movie[] result = new Movie[this.count];
-            for (int i = 0; i < this.count; i++) {
+            Movie[] result = new Movie[items.length];
+            for (int i = 0; i < items.length; i++) {
                 int index = items.length - i - 1;
                 result[i] = items[index];
             }

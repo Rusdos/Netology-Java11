@@ -30,7 +30,7 @@ public class MovieManagerNotDefaultConstructorTest {
     @Test
     public void shouldGetConstructorWithParameter() {
         Movie[] actual = manager.getLast();
-        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third};
+        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
 
         assertArrayEquals(expected,actual);
     }
