@@ -7,7 +7,7 @@ import ru.netology.domain.Movie;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class MovieManagerNotDefaultConstructorTest {
-    private MovieManager manager = new MovieManager(5);
+  //  private MovieManager manager = new MovieManager(5);
     private Movie first = new Movie(1, "Бладшот", "Боевик", "", false);
     private Movie second = new Movie(2, "Вперёд", "Мультфильм", "", false);
     private Movie third = new Movie(3, "Отель 'Белград'", "Комедия", "", false);
@@ -16,7 +16,7 @@ public class MovieManagerNotDefaultConstructorTest {
     private Movie sixth = new Movie(6, "Тролли. Мировой тур", "Мультфильм", "", true);
     private Movie seventh = new Movie(7, "Номер один", "Комедия", "", true);
 
-    @BeforeEach
+   /* @BeforeEach
     public void setUp() {
         manager.add(first);
         manager.add(second);
@@ -25,14 +25,52 @@ public class MovieManagerNotDefaultConstructorTest {
         manager.add(fifth);
         manager.add(sixth);
         manager.add(seventh);
+    }*/
+
+    @Test
+    public void shouldGetLessThanNumberMovies() {
+        MovieManager manager = new MovieManager(5);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        Movie[] actual = manager.getLast();
+        Movie[] expected = new Movie[]{fifth, fourth, third, second, first};
+        assertArrayEquals(expected,actual);
     }
 
     @Test
-    public void shouldGetConstructorWithParameter() {
+    public void shouldGetEqualNumberMovies(){
+        MovieManager manager = new MovieManager(7);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
         Movie[] actual = manager.getLast();
         Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
-
         assertArrayEquals(expected,actual);
     }
+
+    @Test
+    public void shouldGetMoreNumberMovies(){
+        MovieManager manager = new MovieManager(11);
+        manager.add(first);
+        manager.add(second);
+        manager.add(third);
+        manager.add(fourth);
+        manager.add(fifth);
+        manager.add(sixth);
+        manager.add(seventh);
+        Movie[] actual = manager.getLast();
+        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
+        assertArrayEquals(expected,actual);
+    }
+
 }
 

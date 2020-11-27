@@ -26,12 +26,5 @@ public class MovieManagerOneMovieTest {
         assertArrayEquals(expected, actual);
     }
 
-    @Test
-    public void shouldGetLast(){
-        MovieManager managerGet = new MovieManager();
-        managerGet.add(first);
-        Movie[] actual = managerGet.getLast();
-        Movie[] expected = new Movie[]{first};
-        assertArrayEquals(expected, actual);
-    }
+
 }

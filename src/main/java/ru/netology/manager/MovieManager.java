@@ -34,12 +34,19 @@ public class MovieManager {
     }
 
     public Movie[] getLast() {
-        if (this.count == 10) {
+        if (this.count > items.length) {
             Movie[] result = new Movie[items.length];
             // перебираем массив в прямом порядке
             // но кладём в результаты в обратном
             for (int i = 0; i < items.length; i++) {
                 int index = items.length - i - 1;
+                result[i] = items[index];
+            }
+            return result;
+        } else if (this.count < items.length) {
+            Movie[] result = new Movie[this.count];
+            for (int i = 0; i < this.count; i++) {
+                int index = this.count - i - 1;
                 result[i] = items[index];
             }
             return result;
@@ -51,6 +58,7 @@ public class MovieManager {
             }
             return result;
         }
+
     }
 
     // наивная реализация

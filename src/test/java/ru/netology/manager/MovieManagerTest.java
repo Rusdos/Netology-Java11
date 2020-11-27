@@ -48,12 +48,41 @@ public class MovieManagerTest {
 
         assertArrayEquals(expected, actual);
     }
+
+
     @Test
-    public void shouldGet(){
-        Movie[] actual = manager.getLast();
+    public void shouldGetWhenOneMovie(){
+        MovieManager managerGet = new MovieManager();
+        managerGet.add(first);
+        Movie[] actual = managerGet.getLast();
+        Movie[] expected = new Movie[]{first};
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldGetWhenManyMovies(){
+        MovieManager managerGet = new MovieManager();
+        managerGet.add(first);
+        managerGet.add(second);
+        managerGet.add(third);
+        managerGet.add(fourth);
+        managerGet.add(fifth);
+        managerGet.add(sixth);
+        managerGet.add(seventh);
+        Movie[] actual = managerGet.getLast();
         Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
-
     }
+
+    @Test
+    public void shouldGetWhenNoMovies(){
+        MovieManager managerGet = new MovieManager();
+        Movie[] actual = managerGet.getLast();
+        Movie[] expected = new Movie[0];
+        assertArrayEquals(expected, actual);
+    }
+
+
+
 
 }
