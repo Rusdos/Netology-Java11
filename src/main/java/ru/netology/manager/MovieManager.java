@@ -16,16 +16,10 @@ public class MovieManager {
         this.items = new Movie[0];
     }
 
-
     public void add(Movie item) {
         // создаём новый массив размером на единицу больше
         int length = items.length + 1;
         Movie[] tmp = new Movie[length];
-        // itar + tab
-        // копируем поэлементно
-        // for (int i = 0; i < items.length; i++) {
-        //   tmp[i] = items[i];
-        // }
         System.arraycopy(items, 0, tmp, 0, items.length);
         // кладём последним наш элемент
         int lastIndex = tmp.length - 1;
@@ -34,31 +28,22 @@ public class MovieManager {
     }
 
     public Movie[] getLast() {
+        int length = 0;
         if (this.count > items.length) {
-            Movie[] result = new Movie[items.length];
-            // перебираем массив в прямом порядке
-            // но кладём в результаты в обратном
-            for (int i = 0; i < items.length; i++) {
-                int index = items.length - i - 1;
-                result[i] = items[index];
-            }
-            return result;
+             length = items.length;
         } else if (this.count < items.length) {
-            Movie[] result = new Movie[this.count];
-            for (int i = 0; i < this.count; i++) {
-                int index = this.count - i - 1;
-                result[i] = items[index];
-            }
-            return result;
+            length = this.count;
         } else {
-            Movie[] result = new Movie[items.length];
-            for (int i = 0; i < items.length; i++) {
-                int index = items.length - i - 1;
-                result[i] = items[index];
-            }
-            return result;
+            length = items.length;
         }
-
+        Movie[] result = new Movie[length];
+        // перебираем массив в прямом порядке
+        // но кладём в результаты в обратном
+        for (int i = 0; i < length; i++) {
+            int index = length - i - 1;
+            result[i] = items[index];
+        }
+        return result;
     }
 
     // наивная реализация
