@@ -42,14 +42,13 @@ public class MovieManagerTest {
     @Test
     public void shouldAdd() {
         // настройка заглушки
-        Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
+        Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh, second};
         doReturn(tmp).when(repository).findAll();
-        doReturn(tmp).when(repository).getLast();
-        manager.add(first);
+        manager.add(second);
         Movie[] actual = manager.getLast();
-        Movie[] expected = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
+        Movie[] expected = new Movie[]{second, seventh, sixth, fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
-        verify(repository, new Times(2)).save(first);
+        verify(repository).save(first);
     }
 
     @Test
@@ -57,18 +56,14 @@ public class MovieManagerTest {
         // настройка заглушки
         Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
         doReturn(tmp).when(repository).findAll();
-        doReturn(tmp).when(repository).getLast();
         Movie[] actual = manager.getLast();
-        Movie[] expected = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
+        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
-        // удостоверяемся, что заглушка была вызвана с нужным значением
-        // но это уже проверка "внутренней" реализации
-        verify(repository).getLast();
+        verify(repository).findAll();
     }
 
     @Test
     public void shouldRemoveById(){
-
         int idToRemove = 2;
         // настройка заглушки
         Movie[] tmp = new Movie[]{first, third, fourth, fifth, sixth, seventh};
@@ -76,10 +71,8 @@ public class MovieManagerTest {
         doNothing().when(repository).removeById(idToRemove);
         manager.removeById(idToRemove);
         Movie[] actual = manager.getLast();
-        Movie[] expected = new Movie[]{first, third, fourth, fifth, sixth, seventh};
+        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, first};
         assertArrayEquals(expected, actual);
-        // удостоверяемся, что заглушка была вызвана с нужным значением
-        // но это уже проверка "внутренней" реализации
         verify(repository).removeById(idToRemove);
     }
 
