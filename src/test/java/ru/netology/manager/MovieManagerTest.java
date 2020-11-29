@@ -45,13 +45,11 @@ public class MovieManagerTest {
         Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
         doReturn(tmp).when(repository).findAll();
         doReturn(tmp).when(repository).getLast();
-
         manager.add(first);
         Movie[] actual = manager.getLast();
         Movie[] expected = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
         assertArrayEquals(expected, actual);
         verify(repository, new Times(2)).save(first);
-
     }
 
     @Test
@@ -60,11 +58,9 @@ public class MovieManagerTest {
         Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
         doReturn(tmp).when(repository).findAll();
         doReturn(tmp).when(repository).getLast();
-
         Movie[] actual = manager.getLast();
         Movie[] expected = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
         assertArrayEquals(expected, actual);
-
         // удостоверяемся, что заглушка была вызвана с нужным значением
         // но это уже проверка "внутренней" реализации
         verify(repository).getLast();
@@ -78,16 +74,13 @@ public class MovieManagerTest {
         Movie[] tmp = new Movie[]{first, third, fourth, fifth, sixth, seventh};
         doReturn(tmp).when(repository).findAll();
         doNothing().when(repository).removeById(idToRemove);
-
         manager.removeById(idToRemove);
         Movie[] actual = manager.getLast();
         Movie[] expected = new Movie[]{first, third, fourth, fifth, sixth, seventh};
         assertArrayEquals(expected, actual);
-
         // удостоверяемся, что заглушка была вызвана с нужным значением
         // но это уже проверка "внутренней" реализации
         verify(repository).removeById(idToRemove);
-
     }
 
 }

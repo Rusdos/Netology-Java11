@@ -58,23 +58,22 @@ public class MovieRepository {
     }
 
     public Movie[] getLast(){
-        if (this.count == 10) {
-             Movie[] result = new Movie[items.length];
-            // перебираем массив в прямом порядке
-            // но кладём в результаты в обратном
-            for (int i = 0; i < items.length; i++) {
-                int index = items.length - i - 1;
-                result[i] = items[index];
-            }
-            return result;
+        int length = 0;
+        if (this.count > items.length) {
+            length = items.length;
+        } else if (this.count < items.length) {
+            length = this.count;
         } else {
-            Movie[] result = new Movie[this.count];
-            for (int i = 0; i < this.count; i++) {
-                int index = items.length - i - 1;
-                result[i] = items[index];
-            }
-            return result;
+            length = items.length;
         }
+        Movie[] result = new Movie[length];
+        // перебираем массив в прямом порядке
+        // но кладём в результаты в обратном
+        for (int i = 0; i < length; i++) {
+            int index = length - i - 1;
+            result[i] = items[index];
+        }
+        return result;
 
     }
 }
