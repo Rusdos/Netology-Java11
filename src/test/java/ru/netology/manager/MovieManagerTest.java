@@ -52,18 +52,64 @@ public class MovieManagerTest {
     }
 
     @Test
-    public void shouldGetLast(){
+    public void shouldGetLessThanCountMovie() {
+        MovieManager managerLess = new MovieManager(repository, 4);
+        managerLess.add(first);
+        managerLess.add(second);
+        managerLess.add(third);
+        managerLess.add(fourth);
+        managerLess.add(fifth);
+        managerLess.add(sixth);
+        managerLess.add(seventh);
         // настройка заглушки
         Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
         doReturn(tmp).when(repository).findAll();
-        Movie[] actual = manager.getLast();
+        Movie[] actual = managerLess.getLast();
         Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
         assertArrayEquals(expected, actual);
         verify(repository).findAll();
     }
 
     @Test
-    public void shouldRemoveById(){
+    public void shouldGetEqualCountMovie() {
+        MovieManager managerEqual = new MovieManager(repository, 7);
+        managerEqual.add(first);
+        managerEqual.add(second);
+        managerEqual.add(third);
+        managerEqual.add(fourth);
+        managerEqual.add(fifth);
+        managerEqual.add(sixth);
+        managerEqual.add(seventh);
+        // настройка заглушки
+        Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
+        doReturn(tmp).when(repository).findAll();
+        Movie[] actual = managerEqual.getLast();
+        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
+        assertArrayEquals(expected, actual);
+        verify(repository).findAll();
+    }
+
+    @Test
+    public void shouldGetMoreCountMovie() {
+        MovieManager managerMore = new MovieManager(repository,12);
+        managerMore.add(first);
+        managerMore.add(second);
+        managerMore.add(third);
+        managerMore.add(fourth);
+        managerMore.add(fifth);
+        managerMore.add(sixth);
+        managerMore.add(seventh);
+        // настройка заглушки
+        Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
+        doReturn(tmp).when(repository).findAll();
+        Movie[] actual = managerMore.getLast();
+        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
+        assertArrayEquals(expected, actual);
+        verify(repository).findAll();
+    }
+
+    @Test
+    public void shouldRemoveById() {
         int idToRemove = 2;
         // настройка заглушки
         Movie[] tmp = new Movie[]{first, third, fourth, fifth, sixth, seventh};

@@ -57,7 +57,7 @@ public class MovieRepository {
         items = empty;
     }
 
-    public Movie[] getLast(){
+  /*  public Movie[] getLast(){
         int length = 0;
         if (this.count > items.length) {
             length = items.length;
@@ -75,5 +75,5 @@ public class MovieRepository {
         }
         return result;
 
-    }
+    }*/
 }
