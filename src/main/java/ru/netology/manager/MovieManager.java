@@ -8,6 +8,9 @@ public class MovieManager {
     private MovieRepository repository;
     private int count = 10;
 
+    public MovieManager() {
+    }
+
     public MovieManager(MovieRepository repository) {
         this.repository = repository;
     }

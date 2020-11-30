@@ -65,7 +65,7 @@ public class MovieManagerTest {
         Movie[] tmp = new Movie[]{first, second, third, fourth, fifth, sixth, seventh};
         doReturn(tmp).when(repository).findAll();
         Movie[] actual = managerLess.getLast();
-        Movie[] expected = new Movie[]{seventh, sixth, fifth, fourth, third, second, first};
+        Movie[] expected = new Movie[]{fourth, third, second, first};
         assertArrayEquals(expected, actual);
         verify(repository).findAll();
     }
